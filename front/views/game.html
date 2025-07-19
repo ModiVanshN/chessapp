@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> head }}
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom, #f1f2f6, #dcdde1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            margin: 0;
+            padding-top: 30px;
+        }
+
+        #myBoard {
+            width: 700px;
+            max-width: 95vw;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        .info-section {
+            width: 700px;
+            max-width: 95vw;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+            color: #2f3640;
+        }
+
+        #pgn {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #dcdde1;
+            border-radius: 6px;
+            background-color: #f5f6fa;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #44bd32;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            font-size: 1rem;
+            font-weight: bold;
+            z-index: 999;
+            opacity: 0;
+            animation: fadeInOut 4s ease-in-out forwards;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(-20px); }
+            10% { opacity: 1; transform: translateY(0); }
+            90% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="myBoard"></div>
+
+    <div class="info-section">
+        <label>PGN:</label>
+        <div id="pgn"></div>
+    </div>
+
+    <script>
+        let playerColor = '{{color}}';
+        console.log('Playing as ' + playerColor);
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerText = message;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 4000);
+        }
+
+        // Example usage (you can call this from your game logic):
+        // showNotification('Game over, Black is in checkmate.');
+    </script>
+
+    <script src="/public/js/index.js"></script>
+</body>
+</html>

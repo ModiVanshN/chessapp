@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> head }}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #c9d6ff, #e2e2e2);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 300px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 45%;
+            padding: 10px;
+            margin: 0 5px;
+            font-size: 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #fff;
+            transition: background 0.3s ease;
+        }
+
+        #createGame {
+            background-color: #28a745;
+        }
+
+        #createGame:hover {
+            background-color: #218838;
+        }
+
+        #joinGame {
+            background-color: #007bff;
+        }
+
+        #joinGame:hover {
+            background-color: #0069d9;
+        }
+
+        #errorMessage {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Join a Chess Game</h2>
+        <input type="text" id="codeInput" placeholder="Enter Game Code">
+        <div style="margin-bottom: 15px;">
+            <button id="createGame">Create</button>
+            <button id="joinGame">Join</button>
+        </div>
+        <div id="errorMessage"></div>
+    </div>
+
+    <script>
+        document.getElementById('createGame').addEventListener('click', () => {
+            const code = document.getElementById('codeInput').value.trim();
+            if (code) window.location.replace('/white?code=' + code);
+            else document.getElementById('errorMessage').textContent = 'Please enter a code.';
+        });
+
+        document.getElementById('joinGame').addEventListener('click', () => {
+            const code = document.getElementById('codeInput').value.trim();
+            if (code) window.location.replace('/black?code=' + code);
+            else document.getElementById('errorMessage').textContent = 'Please enter a code.';
+        });
+
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('error') === 'invalidCode') {
+            document.getElementById('errorMessage').textContent = 'Invalid invite code.';
+        }
+    </script>
+</body>
+</html>
